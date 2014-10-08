@@ -1,6 +1,7 @@
 import socket
+import time
 
-host = '10.0.1.38'
+host = 'localhost'
 port = 8080
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -8,22 +9,28 @@ s.bind((host, port))
 s.listen(1)
 conn, addr = s.accept()
 
-print ("Connection from", addr)
-
-while True:
-    data = conn.recv(1024)
-    if data == "work":
-        print("work")
-        conn.sendall("work")
-        s.sendall("work")
+def replyBack (data):
+    print(data)
+    if data  == "Fuck You":
+        print("Fuck You")
+        conn.sendall("No Fuck You")
+        time.sleep(1)
+        #s.sendall("work")
     else:
         print("Recieved: " + (data))
 
-    if not data: break
+print ("Connection from", addr)
 
-    response = raw_input("Reply: ")
-    if response == "exit":
-        break
+#if not data: break
 
-    conn.sendall(response)
+while True:
+    data = conn.recv(1024)
+    replyBack(data)
+    print("test")
+    break
+    #response = raw_input("Reply: ")
+    
+    #if response == "exit":
+    #    break
+    conn.sendall(data)
 conn.close()
