@@ -1,5 +1,6 @@
 import socket
 import time
+import os
 
 host = 'localhost'
 port = 8080
@@ -29,7 +30,7 @@ while True:
     print("test")
     break
     #response = raw_input("Reply: ")
-    
+
     #if response == "exit":
     #    break
     conn.sendall(data)
