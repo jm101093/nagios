@@ -2,7 +2,7 @@ import os
 import datetime
 import socket
 
-directory = os.listdir("c:\\")
+directory = os.listdir("c:\\nagios\\nagios")
 print directory
 
 from os import walk
