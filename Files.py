@@ -20,12 +20,12 @@ def countFiles (i, myPyfiles):
     done(i)
 
 def done (i):
-    print('filecount=',(i))
+    print "filecount=" , i
 
 x=0
 for item in directory:
-    print(x ,".", item)
-    x=x+1
+    print x ,".", item
+    x = x + 1
     if directory == "":
         break
 
