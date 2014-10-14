@@ -2,18 +2,12 @@ import socket
 import time
 import os
 
-#def formatData(data):
-#    while True:
-#        data = s.recv(1024)
-#        AlwaysTrue(data)
-
 def AlwaysTrue(data):
     #print("I am in Always True")
     print(data)
     #response = raw_input("Reply: ")
     if data == "exit":
         s.sendall(response1)
-        s.close()
     time.sleep(1)
     sendReply(data)
 
@@ -32,7 +26,6 @@ def newResponse():
 
 host = 'localhost'
 port = 8080
-response1 = "Closing"
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((host, port))
