@@ -28,13 +28,17 @@ def countFiles (i, myPyfiles):
         print(timeDays)
         print "Epoch =", epoch
         print "The Time is", currentTime
-        print " "
+        timeCompare(currentTime, createTime, item)
     done(i)
 
-def timeCompare(currentTime, createTime):
-
-    if currentTime ==
-
+def timeCompare(currentTime, createTime, item):
+    timeDif = createTime + 3600
+    if currentTime >= timeDif:
+        HoursOld = createTime / 3600
+        printTime= time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(createTime))
+        print "1 CRIT", "file", item, "is", HoursOld, "Hours Old"
+    else: print("0 OK file", item, "is", printTime, "old")
+    print " "
 
 def done (i):
     print "filecount =" , i
@@ -46,7 +50,7 @@ def done (i):
 #    if directory == "":
 #        break
 
-myPyFiles = glob.glob('c:/windows/system32/*.dll')
+myPyFiles = glob.glob('//server/1500/*.*')
 i =0
 countFiles(i, myPyFiles)
 
