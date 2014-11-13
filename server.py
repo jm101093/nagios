@@ -9,7 +9,7 @@ def formatData(data):
         #conn.sendall(data)
         replyBack(data)
 #replys
-def replyBack (data):
+def replyBack(data):
     #print(data)
     if data  == "Fuck You":
         print("Fuck You")

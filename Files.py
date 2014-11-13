@@ -5,8 +5,9 @@ import time
 import datetime
 import glob
 
-directory = os.listdir("c:\\nagios\\nagios")
+#directory = os.listdir("/Users/jklre/nagios")
 #print directory
+
 from os import walk
 
 #f = []
@@ -42,13 +43,6 @@ def timeCompare(currentTime, createTime, item):
 
 def done (i):
     print "filecount =" , i
-
-#x=0
-#for item in directory:
-#    print x ,".", item
-#    x = x + 1
-#    if directory == "":
-#        break
 
 myPyFiles = glob.glob('//server/1500/*.*')
 i =0

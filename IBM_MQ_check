@@ -1,0 +1,61 @@
+#!/usr/bin/python
+# -*- encoding: utf-8; py-indent-offset: 4 -*-
+# +------------------------------------------------------------------+
+# |             ____ _               _        __  __ _  __           |
+# |            / ___| |__   ___  ___| | __   |  \/  | |/ /           |
+# |           | |   | '_ \ / _ \/ __| |/ /   | |\/| | ' /            |
+# |           | |___| | | |  __/ (__|   <    | |  | | . \            |
+# |            \____|_| |_|\___|\___|_|\_\___|_|  |_|_|\_\           |
+# |                                                                  |
+# | Copyright Mathias Kettner 2013             mk@mathias-kettner.de |
+# +------------------------------------------------------------------+
+#
+#    Modified by Jeremy McLaurin to show only MQ_check
+#    we only care about MQ_check
+
+#ISSSS.TO.ECSTEST:0:200
+#MWICHAN:0:999999999
+#RL101367.TO.ECSTEST:0:400
+
+MQ_check_default_levels = (5, 10)
+
+def inventory_MQ_Connections(info):
+    if len(info) == 1 and len(info[0]) >= 1:
+        return [(None, "kernel_util_default_levels")]
+
+def check_MQ_Connections(_no_item, params, info):
+    #print info
+    MQ_check = int(info[0][0])
+    perfdata = [
+          ('MQ_check', "%d" % MQ_check )
+          ]
+
+    infotext = " - MQ_check: %2.1f%%" % (MQ_check)
+
+    # You may set a warning/critical level on the io wait
+    # percentage. This can be done by setting params to
+    # a pair of (warn, crit)
+    result = 0
+    try:
+        warn, crit = params
+        if MQ_check >= crit:
+            result = 2
+            infotext += "(!!)"
+        elif MQ_check >= warn:
+            result = 1
+            infotext += "(!)"
+    except:
+        pass
+
+    #print perfdata
+
+    return (result, nagios_state_names[result] + infotext, perfdata)
+#,perfdata
+
+check_info['MQ_check'] = {
+    "check_function"         : check_MQ_Connections,
+    "inventory_function"     : inventory_MQ_Connections,
+    "service_description"    : "MQ Server Connections",
+    "has_perfdata"           : True,
+    "group"                  : "cpu_iowait",
+}
