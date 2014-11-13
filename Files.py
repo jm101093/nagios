@@ -44,9 +44,29 @@ def timeCompare(currentTime, createTime, item):
 def done (i):
     print "filecount =" , i
 
-myPyFiles = glob.glob('//server/1500/*.*')
+path = '.'
+
+for root, dirs, files in os.walk(path, topdown=True):
+    for name in files:
+        fileName = os.path.join(root, name)
+        print("Filename: " + fileName)
+        fileStats = os.stat(fileName)
+        print("     Protection Bits: " + str(fileStats.st_mode))
+        print("     Last Changed: " + time.strftime("%Z - %Y/%m/%d, %H:%M:%S", time.localtime(fileStats.st_ctime)))
+    # for name in dirs:
+    #     print(os.path.join(root, name))
+
+# for root, dirs, files in os.walk(path):
+#     # do whatever you want to with dirs and files
+#     if root != path:
+#         # one level down, modify dirs in place so we don't go any deeper
+#         del dirs[:]
+
+#myFiles2 = os.listdir('/')
+#myFiles = os.walk('**', True, None, False)
+#myPyFiles = glob.glob('**/*.*')
 i =0
-countFiles(i, myPyFiles)
+#countFiles(i, myPyFiles)
 
 
 
