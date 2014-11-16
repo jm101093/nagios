@@ -2,8 +2,6 @@ import os
 import datetime
 import socket
 import time
-import datetime
-import glob
 
 #directory = os.listdir("/Users/jklre/nagios")
 #print directory
