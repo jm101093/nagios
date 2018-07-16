@@ -10,7 +10,7 @@
 # | Copyright Mathias Kettner 2013             mk@mathias-kettner.de |
 # +------------------------------------------------------------------+
 #
-#    Modified by Jeremy McLaurin to show only MQ_check
+#    Modified by to show only MQ_check
 #    we only care about MQ_check
 
 #ISSSS.TO.ECSTEST:0:200
