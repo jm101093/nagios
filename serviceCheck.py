@@ -15,12 +15,12 @@ results = re.findall(pattern,output)
 
 if len(results) > 0:
 	print("OK")
-	var = commands.getoutput('mail -s "Nagios Service OK" jeremy.mclaurin@mitchell.com < /dev/null')
+	var = commands.getoutput('mail -s "Nagios Service OK" email@your.com < /dev/null')
 else:
 	correct = commands.getoutput('service nagios start');
 	time.sleep(5)
 	corrector = re.findall(pattern1,correct)
 	if len(corrector) > 0:
-		var = commands.getoutput('mail -s "Nagios Service Started" jeremy.mclaurin@mitchell.com < /dev/null')
+		var = commands.getoutput('mail -s "Nagios Service Started" email@your.com < /dev/null')
 	else:
-		var2 = commands.getoutput('mail -s "Nagios Service in trouble" jeremy.mclaurin@mitchell.com < /dev/null')
+		var2 = commands.getoutput('mail -s "Nagios Service in trouble" email@your.com < /dev/null')
