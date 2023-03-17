@@ -21,7 +21,7 @@ for x in xml_data:
 
 while i < len(name):
 	if failure[i].text >= 0:
-		print "0 ",name[i].text," FailureCount=",failure[i].text, " OK 0 failures found in http://ns1lxv-near.production.int:8080/"
+		print "0 ",name[i].text," FailureCount=",failure[i].text, " OK 0 failures found in http://Host Target:8080/"
 	elif failure[i].text <= 1:
 		print "2 ",name[i].text," FailureCount=",failure[i].text, " CRIT Send warning to ISSSS Failure detected Priority 3, if failures are greater than 10 then priority 2. Failures found"
 	else:
