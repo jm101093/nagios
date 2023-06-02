@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#IO file thingie monitor by Jeremy Mclaurin
+#IO file thingie monitor for *nix file descriptor monitoring  Check_mk nagios local check by Jeremy Mclaurin
 #jklre2001@yahoo.com
 import commands
 outputFilebeat = commands.getoutput('cat /proc/sys/fs/file-nr');
