@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 #process monitor
+#replace filebeats with your service name
 import commands
-outputCommand = commands.getoutput('ps -ef | grep filebeat|grep -v grep')
+outputCommand = commands.getoutput('ps -ef | grep filebeats |grep -v grep')
 
 Lines = len(str.splitlines(outputCommand))
 
