@@ -1,0 +1,26 @@
+replace /usr/share/check_mk/web/plugins/perfometer/check_mk.py
+
+for OMD Servername add 
+
+/opt/omd/sites/prod/local/share/check_mk/web/plugins/perfometer/check_mk.py
+
+
+replace /usr/share/check_mk/checks/lpar_aix
+
+edit check_mk_agent to:
+
+if type lparstat >/dev/null 2>&1
+then
+  echo '<<<lparstat_aix>>>'
+  lparstat 1 2|tail -1|awk '{print $7}'
+fi
+
+
+restart checkmk  cmk -C cmk -R
+
+
+#
+/usr/local/pnp4nagios/share/templates
+
+/usr/local/nagios/etc/pnp
+
