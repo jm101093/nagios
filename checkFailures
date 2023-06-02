@@ -6,6 +6,7 @@ import xml
 import xml.etree.ElementTree as et
 import os
 
+URL = "your url"
 file = urllib2.urlopen('URL')
 data = file.read()
 file.close()
