@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+#needs a csv file in the following format to read
+#Status,Start Time,End Time,Directory Path,Monitor Name,File Name/Extension,Subdirectories Check,FileCount Threshold,OldFileAge Threshold,NewFileAge Threshold
+# E,02:00,22:00,\\NetworkPath\,"regex file name match(like .zip),n,-,60,-
 import os, time, stat, sys, csv
 from glob import glob
 from itertools import chain
