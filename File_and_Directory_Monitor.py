@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+#checkmk directory file monitor local check for a windows proxy
 #needs a csv file in the following format to read
 #Status,Start Time,End Time,Directory Path,Monitor Name,File Name/Extension,Subdirectories Check,FileCount Threshold,OldFileAge Threshold,NewFileAge Threshold
 # E,02:00,22:00,\\NetworkPath\,"regex file name match(like .zip),n,-,60,-
