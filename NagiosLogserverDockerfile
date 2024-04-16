@@ -1,0 +1,68 @@
+FROM ubuntu:18.04
+LABEL maintainer="jklre <jklre2001@yahoo.com>"
+
+# Install GnuPG
+RUN apt update && apt-get install -y gnupg
+
+# Add missing GPG keys
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 648ACFD622F3D138 \
+    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 0E98404D386FA1D9 \
+    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys AA8E81B4331F7F50 \
+    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 112695A0E562B32A \
+    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 04EE7237B7D453EC \
+    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EF0F382A1A7B6500
+
+#update your sources first
+RUN echo "deb http://archive.debian.org/debian stretch main" >> /etc/apt/sources.list 
+RUN echo "deb-src http://archive.debian.org/debian stretch main" >> /etc/apt/sources.list 
+RUN echo "deb http://archive.debian.org/debian stretch-backports main" >> /etc/apt/sources.list 
+RUN echo "deb http://archive.debian.org/debian-security stretch/updates main" >> /etc/apt/sources.list 
+RUN echo "deb-src http://archive.debian.org/debian-security stretch/updates main" >> /etc/apt/sources.list
+RUN sed -i 's/stable\/updates/stable-security\/updates/' /etc/apt/sources.list
+
+# Update package lists and install required packages
+RUN apt update && apt -y install wget tar apache2 rsyslog initscripts iproute2 selinux-utils && apt clean all
+
+# download NLS
+WORKDIR /docker/
+RUN wget https://assets.nagios.com/downloads/nagios-log-server/nagioslogserver-latest.tar.gz \
+    && tar xzf nagioslogserver-latest.tar.gz
+
+# Verify the contents of the working directory after extraction
+RUN ls -la
+WORKDIR /docker/
+RUN wget https://repo.nagios.com/deb/bullseye/pool/main/ncpa-2.4.1.d11.amd64.deb && apt install ./ncpa-2.4.1.d11.amd64.deb
+
+# Check the content of the extracted directory
+RUN ls -la /docker/nagioslogserver
+
+# install NLS
+WORKDIR /docker/
+RUN ls -la && if [ ! -f "./nagioslogserver/fullinstall" ]; then \
+      echo "Error: Fullinstall script not found!"; \
+      exit 1; \
+    fi
+RUN sed -i '/^do_install_check$/d' ./nagioslogserver/fullinstall || (echo "Error: Sed command failed!" && exit 1)
+RUN touch installed.firewall
+RUN ./nagioslogserver/fullinstall --non-interactive
+
+# finalise build configuration
+WORKDIR /usr/local/nagioslogserver
+VOLUME ["/usr/local/nagioslogserver"]
+EXPOSE 80:91 443 9000 3515 5544 2056 2057 5544/udp
+
+# configure start script
+ADD start.sh /start.sh
+RUN chmod 755 /start.sh
+CMD ["/start.sh"]
+
+#shart.sh file
+#!/bin/bash
+
+#service apache2 start
+#service elasticsearch start
+#service logstash start
+
+#/bin/bash
+#sleep 10
+#tail -n0 -F /var/log/elasticsearch/*.log /var/log/logstash/logstash.log /var/log/httpd/error_log
